@@ -1,8 +1,5 @@
 <template>
-  <div
-    id="app"
-    v-text="text"
-  >
+  <div id="app">
     <router-view />
   </div>
 </template>
@@ -10,11 +7,6 @@
 <script>
 export default {
   name: 'App',
-  data() {
-    return {
-      text: '123',
-    };
-  },
 };
 </script>
 
