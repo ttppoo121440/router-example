@@ -5,7 +5,7 @@
       <div class="col-lg-4">
         <div class="cart-footer-total">
           <div class="cart-footer-pricetotal">
-            總數：{{ cartItemTotal | filter }}<br>
+            總數：{{ cartItemTotal }}<br>
             總金額：{{ cartPriceTotal | filter }}
           </div>
           <div>

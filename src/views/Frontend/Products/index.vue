@@ -70,7 +70,6 @@ export default {
   methods: {
     addCart(product) {
       this.cart = JSON.parse(localStorage.getItem('cart')) || [];
-      console.log(this.cart);
       const list = this.cart.find((item) => item.product.id === product.id);
       if (!list) {
         this.cart.push({ product, quantity: 1 });
@@ -86,7 +85,7 @@ export default {
     getProductsList(page) {
       this.isLoading = true;
       getProducts(page).then((res) => {
-        this.productsList = Object.freeze(res.data);
+        this.productsList = Object.freeze(res.data.sort());
         this.totalPages = res.meta.pagination.total_pages;
         this.isLoading = false;
       });

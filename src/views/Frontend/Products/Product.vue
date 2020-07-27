@@ -54,19 +54,19 @@ export default {
   },
   methods: {
     calculation(data) {
-      if (this.cart.length === 0) {
-        console.log(data);
-        this.addCart(data.product);
-      }
       this.cart.forEach((item, index) => {
         if (item.product.id === data.product.id) {
           const product = item;
           product.quantity = data.quantity;
           this.quantity = data.quantity;
           this.cart.splice(index, 1, item);
+          localStorage.setItem('cart', JSON.stringify(this.cart));
         }
       });
-      localStorage.setItem('cart', JSON.stringify(this.cart));
+      const list = this.cart.find((item) => item.product.id === data.product.id);
+      if (!list) {
+        this.addCart(data.product);
+      }
     },
     addCart(product) {
       this.cart.push({

@@ -1,12 +1,12 @@
-.page-enter-active{
-  transition: opacity 1.5s
+.page-enter-active {
+  transition: opacity 1.5s;
 }
 
 .page-enter, .page-leave-to {
-  opacity: 0
+  opacity: 0;
 }
 .page-enter-to, .page-leave {
-  opacity: 1
+  opacity: 1;
 }
 
 .slide-next-leave-active,
@@ -27,9 +27,10 @@
 .list-enter-active, .list-leave-active {
   transition: all 1s;
 }
+
 .list-enter, .list-leave-to {
   opacity: 0;
-  transform: translateY(-30px);
+  transform: translateY(-300px);
 }
 
 .list-move {
