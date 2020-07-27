@@ -16,9 +16,14 @@ const logout = (data) => post('api/auth/logout', { api_token: data });
  * 產品
  */
 
-const getProducts = () => get(`api/${uuid}/ec/products`);
+const getProducts = (page) => get(`api/${uuid}/ec/products?page=${page}`);
 
 const getSingleProducts = (id) => get(`api/${uuid}/ec/product/${id}`);
+
+/**
+ * 購物車
+ */
+const getCart = () => get(`api/${uuid}/ec/shopping`);
 
 export {
   getProducts,
@@ -26,4 +31,5 @@ export {
   checkLogin,
   login,
   logout,
+  getCart,
 };

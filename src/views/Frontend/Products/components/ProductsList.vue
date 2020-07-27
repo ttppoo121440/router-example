@@ -23,13 +23,19 @@
             <h3>
               {{ product.title }}
             </h3>
-            <p>售價：{{ product.price }}</p>
+            <p>售價：{{ product.price | filter }}</p>
             <div class="list-btns">
               <button
                 class="btn mr-2"
                 @click="$emit('goProductPage',product.id)"
               >
                 觀看更多
+              </button>
+              <button
+                class="btn mr-2"
+                @click="$emit('addCart',product)"
+              >
+                加入購物車
               </button>
             </div>
           </div>

@@ -23,6 +23,10 @@
       <ProductDetails
         :key="$route.fullPath"
         :data="product"
+        :quantity.sync="quantity"
+        :cart="cart"
+        @addCart="addCartHandler"
+        @calculation="calculation"
       />
     </transition-group>
   </section>
@@ -41,17 +45,81 @@ export default {
     return {
       product: {},
       isLoading: false,
+      quantity: 1,
+      cart: [],
     };
   },
   mounted() {
     this.getProduct();
   },
   methods: {
+    calculation(data) {
+      if (this.cart.length === 0) {
+        console.log(data);
+        this.addCart(data.product);
+      }
+      this.cart.forEach((item, index) => {
+        if (item.product.id === data.product.id) {
+          const product = item;
+          product.quantity = data.quantity;
+          this.quantity = data.quantity;
+          this.cart.splice(index, 1, item);
+        }
+      });
+      localStorage.setItem('cart', JSON.stringify(this.cart));
+    },
+    addCart(product) {
+      this.cart.push({
+        product: {
+          id: product.id,
+          title: product.title,
+          category: product.category,
+          content: product.content,
+          enabled: product.enabled,
+          imageUrl: product.imageUrl,
+          origin_price: product.origin_price,
+          price: product.price,
+          unit: product.unit,
+        },
+        quantity: 2,
+      });
+      this.quantity = 2;
+      localStorage.setItem('cart', JSON.stringify(this.cart));
+    },
+    existedCart(product, quantity) {
+      this.cart.forEach((item, index) => {
+        if (item.product.id === product.id) {
+          const tempProduct = item;
+          tempProduct.quantity = quantity + 1;
+          this.quantity += 1;
+          this.cart.splice(index, 1, tempProduct);
+        }
+      });
+      localStorage.setItem('cart', JSON.stringify(this.cart));
+    },
+    addCartHandler(product, quantity) {
+      const list = this.cart.find((item) => item.product.id === product.id);
+      if (!list) {
+        this.addCart(product);
+      } else {
+        this.existedCart(product, quantity);
+      }
+    },
+    getCartId() {
+      const list = this.cart.find((item) => item.product.id === this.product.id);
+      if (!list) {
+        this.quantity = 1;
+      } else {
+        this.quantity = list.quantity;
+      }
+    },
     getProduct() {
+      this.cart = JSON.parse(localStorage.getItem('cart')) || [];
       this.isLoading = true;
       getSingleProducts(this.$route.params.id).then((res) => {
         this.product = Object.freeze(res.data);
         this.isLoading = false;
+        this.getCartId();
       });
     },
   },

@@ -32,6 +32,12 @@
     background: $primary;
     color: $white;
   }
+  &.disabled{
+    background-color: $white;
+    border-color: $gray-300;
+    pointer-events: none;
+    color: $gray-300;
+  }
 
   &-right{
     border-top-right-radius: 0;
