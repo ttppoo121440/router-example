@@ -66,7 +66,25 @@ export default {
     calculation(data) {
       this.$emit('calculation', { product: data.product, quantity: data.quantity });
     },
-    changeValue(data) {
+    addCart(product, quantity) {
+      this.bindingValue = quantity;
+      this.cart.push({
+        product: {
+          id: product.id,
+          title: product.title,
+          category: product.category,
+          content: product.content,
+          enabled: product.enabled,
+          imageUrl: product.imageUrl,
+          origin_price: product.origin_price,
+          price: product.price,
+          unit: product.unit,
+        },
+        quantity,
+      });
+      localStorage.setItem('cart', JSON.stringify(this.cart));
+    },
+    editCart(data) {
       this.cart.forEach((item, index) => {
         if (item.product.id === data.product.id) {
           const product = item;
@@ -76,6 +94,15 @@ export default {
         }
       });
       localStorage.setItem('cart', JSON.stringify(this.cart));
+    },
+    changeValue(data) {
+      const list = this.cart.find((item) => item.product.id === data.product.id);
+      console.log(list);
+      if (!list) {
+        this.addCart(data.product, Number(data.quantity.target.value));
+      } else {
+        this.editCart(data);
+      }
     },
   },
 };

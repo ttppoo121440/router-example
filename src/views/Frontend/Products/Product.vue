@@ -86,7 +86,7 @@ export default {
       this.quantity = 2;
       localStorage.setItem('cart', JSON.stringify(this.cart));
     },
-    existedCart(product, quantity) {
+    editCart(product, quantity) {
       this.cart.forEach((item, index) => {
         if (item.product.id === product.id) {
           const tempProduct = item;
@@ -102,7 +102,7 @@ export default {
       if (!list) {
         this.addCart(product);
       } else {
-        this.existedCart(product, quantity);
+        this.editCart(product, quantity);
       }
     },
     getCartId() {
