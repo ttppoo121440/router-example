@@ -11,6 +11,7 @@
       @goProductPage="goProductPage"
     />
     <Pagination
+      v-show="!isLoading"
       v-bind="Pagination"
       @ChangeNav="ChangeNav"
     />

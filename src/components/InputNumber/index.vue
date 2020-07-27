@@ -42,7 +42,13 @@ export default {
       this.$emit('calculation', { product, quantity });
     },
     changeValue(quantity) {
-      this.$emit('changeValue', { quantity, product: this.data });
+      if (Number(quantity.target.value) < 1) {
+        const temp = quantity;
+        temp.target.value = 1;
+        this.$emit('changeValue', { quantity, product: this.data });
+      } else {
+        this.$emit('changeValue', { quantity, product: this.data });
+      }
     },
   },
 };
